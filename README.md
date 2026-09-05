@@ -35,10 +35,13 @@ cd claude-session-switcher
 
 To update later: `git pull && ./build.sh --install` (it restarts the running app for you). The menu bar item also has **Relaunch** and **Quit**.
 
-On first use macOS will ask for two permissions:
+On first jump macOS asks for **Automation** (control iTerm2 / Terminal) so the exact tab can be selected. Users of other terminals are additionally asked for **Accessibility**, which the title-match fallback needs.
 
-1. **Automation** (control iTerm2 / Terminal) – needed to select the exact tab.
-2. **Accessibility** – needed for the generic fallback used by other terminals.
+Rebuilding re-signs the app, so macOS forgets those grants. To keep them across rebuilds, create a self-signed code-signing certificate once (Keychain Access → Certificate Assistant → Create a Certificate, type *Code Signing*) and build with it:
+
+```sh
+CODESIGN_IDENTITY="ClaudeSwitch Dev" ./build.sh --install
+```
 
 To start it at login: System Settings → General → Login Items → add ClaudeSwitch.
 

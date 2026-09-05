@@ -10,7 +10,10 @@ swiftc -O -swift-version 5 \
     Sources/*.swift Sources/Terminals/*.swift \
     -o "$APP/Contents/MacOS/ClaudeSwitch"
 cp Info.plist "$APP/Contents/Info.plist"
-codesign --force --sign - --identifier ai.vguest.claude-switch "$APP"
+# Ad-hoc signing ("-") changes the app's identity on every build, so macOS
+# forgets granted permissions. Export CODESIGN_IDENTITY to a certificate in
+# your keychain (self-signed is fine) to keep permissions across rebuilds.
+codesign --force --sign "${CODESIGN_IDENTITY:--}" --identifier ai.vguest.claude-switch "$APP"
 echo "built $APP"
 
 # ./build.sh --install  copies to /Applications and relaunches the running app.

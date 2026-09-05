@@ -14,6 +14,5 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
             self?.switcher.handleCommandKey(event) == true ? nil : event
         }
-        AccessibilityAdapter.ensurePermission(prompt: true)
     }
 }
