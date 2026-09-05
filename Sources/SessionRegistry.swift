@@ -3,6 +3,9 @@ import Foundation
 /// Reads the session registry Claude Code maintains in ~/.claude/sessions.
 /// Each live interactive session writes <pid>.json with its name and status.
 enum SessionRegistry {
+    /// Set by `--demo`; serves DemoSessions instead of the real registry.
+    static var demo = false
+
     static var directory: URL {
         let base = ProcessInfo.processInfo.environment["CLAUDE_CONFIG_DIR"]
             .map(URL.init(fileURLWithPath:))
@@ -11,6 +14,7 @@ enum SessionRegistry {
     }
 
     static func load() -> [Session] {
+        if demo { return DemoSessions.list }
         let fm = FileManager.default
         guard let files = try? fm.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil) else { return [] }
         let sessions = files

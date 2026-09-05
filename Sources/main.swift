@@ -21,6 +21,7 @@ func runCommandLine(_ args: [String]) -> Bool {
     return false
 }
 
+SessionRegistry.demo = CommandLine.arguments.contains("--demo")
 if runCommandLine(CommandLine.arguments) { exit(0) }
 
 let app = NSApplication.shared

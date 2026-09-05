@@ -88,6 +88,14 @@ Claude Code puts the session name in the terminal title, which is what makes the
 
 Implement `TerminalAdapter` (see `Sources/Terminals/`) with the terminal's bundle id and a `focus(_:)` that selects the tab owning `session.tty`, then add it to `TerminalFocus.adapters`. Kitty's remote control (`kitty @ focus-window --match pid:<pid>`) and WezTerm's `wezterm cli activate-pane` are natural candidates. Pull requests welcome.
 
+## Screenshots for docs
+
+Launch with `--demo` to fill the popup with generic sessions, so screenshots never show real project names:
+
+```sh
+open /Applications/ClaudeSwitch.app --args --demo
+```
+
 ## Privacy
 
 Everything runs locally. The app only reads `~/.claude/sessions` and talks to the terminal apps on your Mac. Nothing is sent anywhere.
