@@ -10,6 +10,7 @@ final class StatusBar {
         let show = NSMenuItem(title: "Show sessions  \(hotkeyDisplay)", action: #selector(NSApplication.showSwitcher), keyEquivalent: "")
         menu.addItem(show)
         menu.addItem(.separator())
+        menu.addItem(NSMenuItem(title: "Relaunch", action: #selector(NSApplication.relaunch), keyEquivalent: "r"))
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         item.menu = menu
         refresh()
@@ -34,5 +35,14 @@ final class StatusBar {
 extension NSApplication {
     @objc func showSwitcher() {
         (delegate as? AppDelegate)?.switcher.show()
+    }
+
+    /// Quits and reopens this same bundle, picking up a new build or hotkey.
+    @objc func relaunch() {
+        let reopen = Process()
+        reopen.executableURL = URL(fileURLWithPath: "/bin/sh")
+        reopen.arguments = ["-c", "sleep 0.5; open \"\(Bundle.main.bundlePath)\""]
+        try? reopen.run()
+        terminate(nil)
     }
 }

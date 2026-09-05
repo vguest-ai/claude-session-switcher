@@ -12,3 +12,12 @@ swiftc -O -swift-version 5 \
 cp Info.plist "$APP/Contents/Info.plist"
 codesign --force --sign - --identifier ai.vguest.claude-switch "$APP"
 echo "built $APP"
+
+# ./build.sh --install  copies to /Applications and relaunches the running app.
+if [ "$1" = "--install" ]; then
+    pkill -x ClaudeSwitch 2>/dev/null || true
+    rm -rf /Applications/ClaudeSwitch.app
+    cp -R "$APP" /Applications/ClaudeSwitch.app
+    open /Applications/ClaudeSwitch.app
+    echo "installed and relaunched /Applications/ClaudeSwitch.app"
+fi

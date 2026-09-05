@@ -30,10 +30,10 @@ Requires macOS 13+ and the Xcode Command Line Tools (`xcode-select --install`).
 ```sh
 git clone https://github.com/vguest-ai/claude-session-switcher.git
 cd claude-session-switcher
-./build.sh
-cp -r build/ClaudeSwitch.app /Applications/
-open /Applications/ClaudeSwitch.app
+./build.sh --install     # builds, copies to /Applications and launches
 ```
+
+To update later: `git pull && ./build.sh --install` (it restarts the running app for you). The menu bar item also has **Relaunch** and **Quit**.
 
 On first use macOS will ask for two permissions:
 
@@ -59,7 +59,7 @@ Change the hotkey (any combination of `cmd`, `ctrl`, `alt`, `shift` plus a key):
 defaults write ai.vguest.claude-switch hotkey "ctrl+alt+space"
 ```
 
-Restart the app after changing it.
+Then pick **Relaunch** from the menu bar item.
 
 ### Command line
 
