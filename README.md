@@ -51,6 +51,8 @@ To start it at login: System Settings → General → Login Items → add Claude
 | `↑` `↓` | Move selection |
 | `↩` | Jump to the selected session |
 | `⌘1` … `⌘9` | Jump straight to row N |
+| `⌘R` | Relaunch the app (after a rebuild or hotkey change) |
+| `⌘Q` | Quit |
 | `⎋` | Close |
 
 Change the hotkey (any combination of `cmd`, `ctrl`, `alt`, `shift` plus a key):
@@ -59,7 +61,7 @@ Change the hotkey (any combination of `cmd`, `ctrl`, `alt`, `shift` plus a key):
 defaults write ai.vguest.claude-switch hotkey "ctrl+alt+space"
 ```
 
-Then pick **Relaunch** from the menu bar item.
+Then relaunch: ⌥Space → ⌘R (or **Relaunch** in the menu bar item).
 
 ### Command line
 

@@ -168,11 +168,20 @@ final class SwitcherController: NSObject, NSTableViewDataSource, NSTableViewDele
         return true
     }
 
-    /// ⌘1…⌘9 pick a row directly. Called from the app's key monitor.
-    func handleCommandDigit(_ event: NSEvent) -> Bool {
+    /// Command shortcuts while the popup is open: ⌘1…⌘9 pick a row,
+    /// ⌘R relaunches the app, ⌘Q quits. Called from the app's key monitor.
+    func handleCommandKey(_ event: NSEvent) -> Bool {
         guard isVisible, event.modifierFlags.contains(.command),
-              let ch = event.charactersIgnoringModifiers, let n = Int(ch), (1...9).contains(n) else { return false }
-        choose(row: n - 1)
+              let ch = event.charactersIgnoringModifiers?.lowercased() else { return false }
+        if let n = Int(ch), (1...9).contains(n) {
+            choose(row: n - 1)
+        } else if ch == "r" {
+            NSApp.relaunch()
+        } else if ch == "q" {
+            NSApp.terminate(nil)
+        } else {
+            return false
+        }
         return true
     }
 }

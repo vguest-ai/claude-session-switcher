@@ -12,7 +12,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         hotKey = HotKey(keyCode: combo.keyCode, modifiers: combo.modifiers) { [weak self] in self?.switcher.toggle() }
         statusBar = StatusBar(hotkeyDisplay: combo.display) { [weak self] in self?.switcher.show() }
         keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
-            self?.switcher.handleCommandDigit(event) == true ? nil : event
+            self?.switcher.handleCommandKey(event) == true ? nil : event
         }
         AccessibilityAdapter.ensurePermission(prompt: true)
     }
