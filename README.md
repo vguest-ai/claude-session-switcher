@@ -1,5 +1,7 @@
 # Claude Switch
 
+![Claude Switch popup](docs/screenshot.png)
+
 A Spotlight-style switcher for your running [Claude Code](https://claude.com/claude-code) sessions on macOS.
 
 Press a hotkey, see every live session with its name, color and state, pick one, and the terminal tab running it comes to the front.
