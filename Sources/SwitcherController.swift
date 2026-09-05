@@ -11,6 +11,8 @@ final class SwitcherController: NSObject, NSTableViewDataSource, NSTableViewDele
     private let table = NSTableView()
     private let scroll = NSScrollView()
     private let empty = NSTextField(labelWithString: "No running Claude Code sessions")
+    private let footer = NSTextField(labelWithString: "↩ jump   ⌘1-9 pick   ⌘R relaunch app   ⌘Q quit   ⎋ close")
+    private let footerHeight: CGFloat = 26
 
     private var all: [Session] = []
     private var shown: [Session] = []
@@ -63,7 +65,7 @@ final class SwitcherController: NSObject, NSTableViewDataSource, NSTableViewDele
 
     private func resize() {
         let rows = CGFloat(min(max(shown.count, 1), maxRows))
-        panel.place(height: searchHeight + rows * SessionRowView.height + 8)
+        panel.place(height: searchHeight + rows * SessionRowView.height + footerHeight + 4)
     }
 
     private func choose(row: Int) {
@@ -112,11 +114,14 @@ final class SwitcherController: NSObject, NSTableViewDataSource, NSTableViewDele
 
         empty.textColor = .secondaryLabelColor
         empty.alignment = .center
+        footer.font = .systemFont(ofSize: 11)
+        footer.textColor = .tertiaryLabelColor
+        footer.alignment = .center
 
         let separator = NSBox()
         separator.boxType = .separator
 
-        for v in [search, separator, scroll, empty] {
+        for v in [search, separator, scroll, empty, footer] {
             v.translatesAutoresizingMaskIntoConstraints = false
             content.addSubview(v)
         }
@@ -130,7 +135,10 @@ final class SwitcherController: NSObject, NSTableViewDataSource, NSTableViewDele
             scroll.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 4),
             scroll.leadingAnchor.constraint(equalTo: content.leadingAnchor),
             scroll.trailingAnchor.constraint(equalTo: content.trailingAnchor),
-            scroll.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -4),
+            scroll.bottomAnchor.constraint(equalTo: footer.topAnchor),
+            footer.leadingAnchor.constraint(equalTo: content.leadingAnchor),
+            footer.trailingAnchor.constraint(equalTo: content.trailingAnchor),
+            footer.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -8),
             empty.centerXAnchor.constraint(equalTo: scroll.centerXAnchor),
             empty.centerYAnchor.constraint(equalTo: scroll.centerYAnchor),
         ])
